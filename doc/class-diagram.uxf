@@ -1,0 +1,1337 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>0</x>
+      <y>14</y>
+      <w>1687</w>
+      <h>924</h>
+    </coordinates>
+    <panel_attributes>bg=#eeeeee
+symbol=artifact
+transparency=0
+layer=0
+&lt;&lt;artifact&gt;&gt;
+*river-banking-demo*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>7</x>
+      <y>700</y>
+      <w>966</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>layer=1
+bg=#99ff99
+transparency=0
+transparency=0
+Model</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>7</x>
+      <y>63</y>
+      <w>700</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>layer=1
+bg=#6666ff
+transparency=0
+REST Controller</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>784</x>
+      <y>63</y>
+      <w>196</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>layer=1
+bg=#cccccc
+transparency=0
+Exception</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>798</x>
+      <y>105</y>
+      <w>168</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>layer=3
+transparency=0
+*RestControllerExceptionHandler*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>7</x>
+      <y>308</y>
+      <w>973</w>
+      <h>308</h>
+    </coordinates>
+    <panel_attributes>layer=1
+bg=yellow
+transparency=0
+transparency=0
+Service</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>14</x>
+      <y>98</y>
+      <w>308</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+&lt;&lt;REST controller&gt;&gt;
+*AccountController*
+--
+-service: AccountService
+--
++create(payload: CreateAccountDTO): AccountDetailsDTO {POST}
++getAll(): AccountDetailsDTO[0..*] {GET}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>147</x>
+      <y>168</y>
+      <w>21</w>
+      <h>182</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;240.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>21</x>
+      <y>336</y>
+      <w>273</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=3
+&lt;&lt;interface&gt;&gt;
+/*AccountService*/
+--
++create(payload: CreateAccountDTO): AccountDetailsDTO
++getAll(): AccountDetailsDTO[0..*]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>21</x>
+      <y>455</y>
+      <w>273</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=3
+*AccountServiceImpl*
+--
+-mapper: AccountMapper
+-repository: AccountRepository
+--
++create(payload: CreateAccountDTO): AccountDetailsDTO
++getAll(): AccountDetailsDTO[0..*]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>147</x>
+      <y>392</y>
+      <w>21</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>707</x>
+      <y>455</y>
+      <w>196</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=3
+&lt;&lt;interface&gt;&gt;
+/*HashService*/
+--
++computeBinaryHash(input: string): byte[*]
++computeHash(input: string): string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>707</x>
+      <y>539</y>
+      <w>196</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=3
+*HashServiceImpl*
+--
+-digest: MessageDigest
+--
++computeBinaryHash(input: string): byte[*]
++computeHash(input: string): string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>791</x>
+      <y>504</y>
+      <w>21</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>28</x>
+      <y>812</y>
+      <w>322</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>layer=3
+transparency=0
+/&lt;&lt;repository&gt;&gt;/
+/*BankTransactionRepository*/
+--
++findAllByAccountNumber(accountNumber: long): BankTransaction[0..*]
++save(entity: BankTransaction): BankTransaction</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1050</x>
+      <y>70</y>
+      <w>623</w>
+      <h>511</h>
+    </coordinates>
+    <panel_attributes>layer=1
+bg=magenta
+transparency=0
+DTO</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1547</x>
+      <y>504</y>
+      <w>112</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+*CreateAccountDTO*
+--
++holder: string
++pin: string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1064</x>
+      <y>504</y>
+      <w>140</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+*DepositRequestDTO*
+--
++accountNumber: long
++amount: BigDecimal</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1547</x>
+      <y>658</y>
+      <w>84</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+*AppConfig*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1540</x>
+      <y>637</y>
+      <w>98</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>layer=1
+bg=#cccccc
+transparency=0
+Configuration</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1547</x>
+      <y>686</y>
+      <w>84</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+*SwaggerConfig*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1547</x>
+      <y>294</y>
+      <w>112</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+*AccountDTO*
+--
++number: long
++holder: string
++balance: string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1372</x>
+      <y>504</y>
+      <w>140</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+*WithdrawalRequestDTO*
+--
++accountNumber: long
++amount: BigDecimal
++pin: string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1218</x>
+      <y>504</y>
+      <w>140</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+*TransferRequestDTO*
+--
++payerNumber: long
++payeeNumber: long
++amount: BigDecimal
++pin: string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1211</x>
+      <y>91</y>
+      <w>147</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+&lt;&lt;interface&gt;&gt;
+/*TransactionResponseDTO*/
+--
++transactionID: long
++type: Type {enum}
++timestamp: Instant
++amount: string
++balance: string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1078</x>
+      <y>98</y>
+      <w>56</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+&lt;&lt;enum&gt;&gt;
+*Type*
+--
+Deposit
+Withdrawal
+Transfer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1127</x>
+      <y>133</y>
+      <w>91</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=-(+)
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1127</x>
+      <y>175</y>
+      <w>168</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>220.0;10.0;220.0;30.0;10.0;30.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1064</x>
+      <y>217</y>
+      <w>140</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+*DepositResponseDTO*
+--
++transactionID: long
++timestamp: Instant
++amount: string
++balance: string
+--
++type.get() = Type.Deposit</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1218</x>
+      <y>217</y>
+      <w>140</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+&lt;&lt;interface&gt;&gt;
+/*TransferRespoonseDTO*/
+--
++transactionID: long
++timestamp: Instant
++amount: string
++balance: string
++driection: Direction {enum}
+--
++type.get() = Type.Transfer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1372</x>
+      <y>217</y>
+      <w>140</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+*WithdrawalResponseDTO*
+--
++transactionID: long
++timestamp: Instant
++amount: string
++balance: string
+--
++type.get() = Type.Withdrawal</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1274</x>
+      <y>175</y>
+      <w>21</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1274</x>
+      <y>175</y>
+      <w>182</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0;240.0;30.0;240.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1351</x>
+      <y>126</y>
+      <w>140</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>180.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>791</x>
+      <y>84</y>
+      <w>182</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>layer=2
+bg=#bbbbbb
+transparency=0
+Handlers</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>798</x>
+      <y>140</y>
+      <w>168</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>layer=3
+transparency=0
+&lt;&lt;exception&gt;&gt;
+*RiverTechException*
+--
++error: RiverTechError {enum}
++message: string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>798</x>
+      <y>224</y>
+      <w>168</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>layer=3
+transparency=0
+&lt;&lt;enum&gt;&gt;
+*RiverTechError*
+--
++code: short
++type: {enum}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>875</x>
+      <y>189</y>
+      <w>21</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1512</x>
+      <y>777</y>
+      <w>154</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>layer=1
+bg=#cccccc
+transparency=0
+Utils</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1519</x>
+      <y>798</y>
+      <w>140</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+&lt;&lt;singleton&gt;&gt;
+*CurrencyFormatter*
+--
++currency: Currency
+--
++format(input: number): string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>112</x>
+      <y>749</y>
+      <w>154</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>layer=3
+transparency=0
+/&lt;&lt;repository&gt;&gt;/
+/*AccountRepository*/
+--
++findById(id: long): Opt&lt;Account&gt;
++save(entity: Account): Account</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1050</x>
+      <y>637</y>
+      <w>413</w>
+      <h>294</h>
+    </coordinates>
+    <panel_attributes>layer=1
+bg=pink
+transparency=0
+transparency=0
+Mapper</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1057</x>
+      <y>777</y>
+      <w>399</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=3
+&lt;&lt;data mapper&gt;&gt;
+*TransactionMapper*
+--
+-accountMapper: AccountMapper
+--
++toTransferResponse(transfer: BankTransaction, authorID: Long): TransferResponseDTO
++toOutgoingTransferResponseDTO(transfer: BankTransaction): OutgoingTransferDTO
++toIncomingTransferResponseDTO(transfer: BankTransaction): IncomingTransferDTO
++toWithdrawalResponse(withdrawal: BankTransaction): WithdrawalResponseDTO
++toDepositResponse(deposit: BankTransaction): DepositResponseDTO
++fromTransfer(payer: Account, payee: Account, amount: BigDecimal): BankTransaction
++fromWithdrawal(author: Account, amount: BigDecimal): BankTransaction
++fromDeposit(author: Account, amount: BigDecimal): BankTransaction
++toDTO(entity: BankTransaction, accountID: Long): TransactionResponseDTO</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1113</x>
+      <y>665</y>
+      <w>280</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=3
+&lt;&lt;data mapper&gt;&gt;
+*AccountMapper*
+--
+-hashService: HashingService
+--
++fromCreationParams(params: CreateAccountDTO): Account
++toDTO(account: Account): AccountDTO</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1246</x>
+      <y>735</y>
+      <w>49</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=1.5
+layer=5
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>21</x>
+      <y>728</y>
+      <w>336</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>layer=2
+bg=green
+transparency=0
+transparency=0
+Repositories</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>406</x>
+      <y>728</y>
+      <w>371</w>
+      <h>196</h>
+    </coordinates>
+    <panel_attributes>layer=2
+bg=magenta
+transparency=0
+transparency=0
+Entities</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>413</x>
+      <y>749</y>
+      <w>154</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>layer=3
+transparency=0
+&lt;&lt;entity&gt;&gt;
+*BankTransaction*
+--
++id: long
++timestamp: Instant
++amount: BigDecimal
++author: Account
++authorBalance: BigDecimal
++target: Account[0..1]
++targetBalance: BigDecimal[0..1]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>658</x>
+      <y>749</y>
+      <w>105</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>layer=3
+transparency=0
+&lt;&lt;entity&gt;&gt;
+*Account*
+--
++id: long
++holder: string
++pint: byte[*]
++balance: BigDecimal</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>756</y>
+      <w>112</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+lw=1.5
+layer=5
+m1=0..*
+m2=1
+author</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>791</y>
+      <w>112</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+lw=1.5
+layer=5
+m1=0..*
+m2=0..1
+target</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>350</x>
+      <y>805</y>
+      <w>70</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lw=1.5
+layer=5
+lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>791</x>
+      <y>728</y>
+      <w>175</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>layer=2
+bg=#cccccc
+transparency=0
+Listeners</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>798</x>
+      <y>749</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>layer=3
+transparency=0
+/&lt;&lt;repository event listener&gt;&gt;/
+/*BankTransactionListener*/
+--
++onPersist(trans: BankTransaction)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>791</y>
+      <w>329</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lw=1.5
+layer=5
+lt=&lt;.
+
+/intercept actions/</panel_attributes>
+    <additional_attributes>10.0;80.0;450.0;80.0;450.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>329</x>
+      <y>91</y>
+      <w>364</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+&lt;&lt;REST controller&gt;&gt;
+*TransactionController*
+--
+-service: TransactionService
+--
++withdraw(payload: WithdrawalRequestDTO): TransactionResponseDTO {POST}
++transfer(payload: TransferRequestDTO): TransactionResponseDTO {POST}
++deposit(payload: DepositRequestDTO): TransactionResponseDTO {POST}
++getHistory(accountNumber: Long): TransactionHistoryDTO {GET}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>490</x>
+      <y>182</y>
+      <w>21</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;220.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>329</x>
+      <y>336</y>
+      <w>336</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=3
+&lt;&lt;interface&gt;&gt;
+/*TransactionService*/
+--
++getHistory(accountNumber: Long): TransactionHistoryDTO
++withdraw(payload: WithdrawalRequestDTO): WithdrawalResponseDTO
++transfer(payload: TransferRequestDTO): OutgoingTransferDTO
++deposit(payload: DepositRequestDTO): DepositResponseDTO</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>490</x>
+      <y>413</y>
+      <w>21</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>329</x>
+      <y>455</y>
+      <w>336</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=3
+*TransactionServiceImpl*
+--
+-hashService: HashingService
+-accountRepository: AccountRepository
+-transactionMapper: TransactionMapper
+-transactionRepository: BankTransactionRepository
+--
+-validateWithdraw(account: Account, amount: BigDecimal, pin: string)
++getHistory(accountNumber: Long): TransactionHistoryDTO
++withdraw(payload: WithdrawalRequestDTO): WithdrawalResponseDTO
++transfer(payload: TransferRequestDTO): OutgoingTransferDTO
++deposit(payload: DepositRequestDTO): DepositResponseDTO</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>658</x>
+      <y>476</y>
+      <w>63</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>896</x>
+      <y>476</y>
+      <w>371</w>
+      <h>203</h>
+    </coordinates>
+    <panel_attributes>lw=1.5
+layer=5
+lt=-&gt;&gt;&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0;170.0;210.0;510.0;210.0;510.0;270.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>700</x>
+      <y>98</y>
+      <w>112</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+lw=1.5
+layer=5
+/intercept/
+/errors/</panel_attributes>
+    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>616</x>
+      <y>196</y>
+      <w>448</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=1.5
+layer=5
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>620.0;160.0;10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>182</x>
+      <y>525</y>
+      <w>21</w>
+      <h>238</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;320.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>287</x>
+      <y>560</y>
+      <w>56</w>
+      <h>266</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;360.0;10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>35</x>
+      <y>609</y>
+      <w>49</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=1.5
+layer=5
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>42</x>
+      <y>196</y>
+      <w>49</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=1.5
+layer=5
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>875</y>
+      <w>294</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=1.5
+layer=5
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;400.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1400</x>
+      <y>574</y>
+      <w>49</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=1.5
+layer=5
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1456</x>
+      <y>805</y>
+      <w>77</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=1.5
+layer=5
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>90.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1477</x>
+      <y>105</y>
+      <w>189</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+*TransactionHistoryDTO*
+--
++account: AccountDetailsDTO
++history: TransactionResponseDTO[0..*]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1435</x>
+      <y>308</y>
+      <w>56</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+&lt;&lt;enum&gt;&gt;
+*Direction*
+--
+Incoming
+Outgoing</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1358</x>
+      <y>308</y>
+      <w>91</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=-(+)
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1141</x>
+      <y>315</y>
+      <w>154</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>200.0;10.0;200.0;40.0;10.0;40.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1071</x>
+      <y>371</y>
+      <w>168</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+*IncomingTransferDTO*
+--
++transactionID: long
++timestamp: Instant
++amount: string
++balance: string
++payer: AccountSummaryDTO
+--
++direction.get() = Direction.Incoming</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1344</x>
+      <y>371</y>
+      <w>168</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+*OutgoingTransferDTO*
+--
++transactionID: long
++timestamp: Instant
++amount: string
++balance: string
++payee: AccountSummaryDTO
+--
++direction.get() = Direction.Outgoing</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1274</x>
+      <y>315</y>
+      <w>147</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;190.0;40.0;190.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1589</x>
+      <y>147</y>
+      <w>21</w>
+      <h>161</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1547</x>
+      <y>385</y>
+      <w>112</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>layer=2
+transparency=0
+*AccountRefDTO*
+--
++number: long
++holder: string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1232</x>
+      <y>413</y>
+      <w>329</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0;80.0;100.0;430.0;100.0;430.0;10.0;450.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1505</x>
+      <y>392</y>
+      <w>56</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>973</x>
+      <y>406</y>
+      <w>84</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=1.5
+layer=5
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>100.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>224</x>
+      <y>546</y>
+      <w>119</w>
+      <h>217</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
+lw=1.5
+layer=5</panel_attributes>
+    <additional_attributes>10.0;290.0;10.0;10.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>595</x>
+      <y>609</y>
+      <w>469</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+lw=1.5
+layer=5
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>650.0;100.0;10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
