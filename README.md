@@ -5,9 +5,8 @@ This is a demonstration project commissioned by River Tech Plc.
 This project consists of a web service with a REST interface to manage banking operations.
 
 1. Requirements
-2. Database schema
+2. Architectural Overview
 3. REST endpoints
-4. Class Diagram
 
 ### 1. Requirements
 The application is a proof of concept aimed at creating bank accounts and transferring money between them.
