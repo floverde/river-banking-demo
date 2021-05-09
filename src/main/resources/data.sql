@@ -9,4 +9,4 @@ INSERT INTO `transaction` (`id`, `amount`, `author_balance`, `target_balance`, `
 INSERT INTO `transaction` (`id`, `amount`, `author_balance`, `target_balance`, `timestamp`, `author`, `target`) VALUES (2003, -100.00,  500.00, 100.00, '2021-03-24 13:32:26.876Z', 1001, 1003);
 INSERT INTO `transaction` (`id`, `amount`, `author_balance`, `target_balance`, `timestamp`, `author`, `target`) VALUES (2004,  650.00,  750.00,   null, '2021-04-10 12:45:56.006Z', 1003, null);
 INSERT INTO `transaction` (`id`, `amount`, `author_balance`, `target_balance`, `timestamp`, `author`, `target`) VALUES (2005,  650.00,  750.00,   null, '2021-04-10 12:45:56.006Z', 1003, null);
-INSERT INTO `transaction` (`id`, `amount`, `author_balance`, `target_balance`, `timestamp`, `author`, `target`) VALUES (2006, 1000.00, 1000.00,   null, '2020-03-09 09:13:21.447Z', 1002, null);
+INSERT INTO `transaction` (`id`, `amount`, `author_balance`, `target_balance`, `timestamp`, `author`, `target`) VALUES (2006, 1050.00, 1050.00,   null, '2020-03-09 09:13:21.447Z', 1002, null);
