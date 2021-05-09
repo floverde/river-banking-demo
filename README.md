@@ -93,7 +93,7 @@ Together with the references to the accounts involved in the transaction, the va
 
 At first glance, it may appear that the transaction `type` has not been stored. How do we figure out if the operation that originated the transaction is a *transfer*, a *deposit* or a *withdrawal*? The following pseudo-code fragment explains how this information is inferred from the information we already have:
 
-```pseudocode
+```typescript
 /* Get the operation type of a transaction */
 fun (transaction) -> operation.type {
   if (transaction has target) {
@@ -112,7 +112,7 @@ Since, as previously mentioned, the reference to the `target` account is present
 
 Regarding transfers, they are also characterized by a `direction` (*incoming* or *outgoing*). The direction is not information that belongs to the transaction itself, but depends on the role played by a certain account. If an account is the *author* of a certain transfer, then we are in the presence of an `outgoing` transfer (a certain amount has been paid to another account). On the contrary, if the transaction passively involves the account (`target` reference), then the transfer is considered `incoming` (the account has collected a sum of money from another account).
 
-```pseudocode
+```typescript
 /* Gets the direction of a transfer where a certain account is involved */
 fun (transfer, involved_account) -> transfer.direction {
   if (involved_account is transaction.author) {
@@ -125,7 +125,7 @@ fun (transfer, involved_account) -> transfer.direction {
 
 Putting it all together we get the following function:
 
-```pseudocode
+```typescript
 /* Gets the type of operation, and in case of transfer its direction from a certain transaction */
 fun (transaction, involvedAccount) -> «operation.type, transfer.direction» {
   if (transaction has target) {
@@ -135,8 +135,8 @@ fun (transaction, involvedAccount) -> «operation.type, transfer.direction» {
       return "incoming transfer"
     }
   } else {
-	if (transaction.amount < 0) {
-	  return "withdrawal"
+    if (transaction.amount < 0) {
+      return "withdrawal"
     } else {
       return "deposit"
     }
@@ -465,7 +465,7 @@ HTTP/1.1 200 OK
     "balance": "€ 750,00"
   },
   "history": [
-    // ....
+    /*...*/
     {
       "transaction-id": 2003,
       "type": "Transfer",
@@ -478,6 +478,7 @@ HTTP/1.1 200 OK
         "holder": "Stanley Parker"
       }
     }
+	/*...*/
   ]
 }
 ```
@@ -875,7 +876,7 @@ HTTP/1.1 200 OK
 		"holder": "Lizzie George"
 	  }
 	},
-    // ...
+    /*...*/
   ]
 }
 ```
@@ -915,7 +916,7 @@ HTTP/1.1 200 OK
 		"holder": "John Smith"
 	  }
 	},
-    // ...
+    /*...*/
   ]
 }
 ```
