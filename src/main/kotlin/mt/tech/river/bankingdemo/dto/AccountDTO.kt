@@ -1,7 +1,6 @@
 package mt.tech.river.bankingdemo.dto
 
-import io.swagger.annotations.ApiModel
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 import mt.tech.river.bankingdemo.dto.validation.AccountPin
 import org.springframework.validation.annotation.Validated
 import javax.validation.constraints.NotBlank
@@ -12,16 +11,16 @@ import javax.validation.constraints.NotBlank
  *  * pin - Security Pin.
  */
 @Validated
-@ApiModel(description = "Parameters for creating a bank account")
+@Schema(description = "Parameters for creating a bank account")
 data class CreateAccountDTO(
     @field:NotBlank
-    @ApiModelProperty(value = "Name of account holder",
-                      example = "John Smith", required = true)
+    @Schema(description = "Name of account holder",
+            example = "John Smith", required = true)
     val holder: String,
 
     @field:AccountPin
-    @ApiModelProperty(value = "Security Pin", example = "0000",
-                      notes = "4-digits pin", required = true)
+    @Schema(description = "Security Pin", example = "0000",
+            format = "4-digits pin", required = true)
     val pin: String
 )
 
@@ -30,15 +29,15 @@ data class CreateAccountDTO(
  * * number - Account number.
  * * holder - Account holder.
  */
-@ApiModel(description = "Summary output structure of a bank account")
+@Schema(description = "Summary output structure of a bank account")
 data class AccountRefDTO(
-    @ApiModelProperty(value = "Account number",
+    @Schema(description = "Account number",
             example = "1000125", required = true)
-    open val number: Long,
+    val number: Long,
 
-    @ApiModelProperty(value = "Account holder",
+    @Schema(description = "Account holder",
             example = "John Smith", required = true)
-    open val holder: String
+    val holder: String
 )
 
 /**
@@ -47,17 +46,17 @@ data class AccountRefDTO(
  * * holder - Account holder.
  * * balance - Account balance.
  */
-@ApiModel(description = "Detailed output structure of a bank account")
+@Schema(description = "Detailed output structure of a bank account")
 data class AccountDTO(
-    @ApiModelProperty(value = "Account number",
-        example = "1", required = true)
+    @Schema(description = "Account number",
+            example = "1", required = true)
     val number: Long,
 
-    @ApiModelProperty(value = "Account holder",
-        example = "John Smith", required = true)
+    @Schema(description = "Account holder",
+            example = "John Smith", required = true)
     val holder: String,
 
-    @ApiModelProperty(value = "Account balance",
-                      example = "$ 4,321.01", required = true)
+    @Schema(description = "Account balance",
+            example = "$ 4,321.01", required = true)
     val balance: String
 )

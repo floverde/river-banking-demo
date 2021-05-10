@@ -1,15 +1,15 @@
 package mt.tech.river.bankingdemo.controllers
 
-import io.swagger.annotations.ApiParam
-import io.swagger.annotations.ApiOperation
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import mt.tech.river.bankingdemo.dto.AccountDTO
 import mt.tech.river.bankingdemo.dto.CreateAccountDTO
 import mt.tech.river.bankingdemo.services.AccountService
 import org.springframework.web.bind.annotation.*
 import org.springframework.http.ResponseEntity
+import org.springframework.http.HttpStatus
 import javax.validation.Valid
 import mu.KotlinLogging
-import org.springframework.http.HttpStatus
 
 /**
  * Account REST Controller.
@@ -31,8 +31,8 @@ class AccountController(private val service: AccountService) {
      * @return newly created account.
      */
     @PostMapping
-    @ApiOperation("Create a new bank account", produces = "application/json", consumes = "application/json")
-    fun create(@ApiParam(value = "Parameters for creating a bank account", required = true)
+    @Operation(summary = "Create a new bank account")
+    fun create(@Parameter(description = "Parameters for creating a bank account", required = true)
                @Valid @RequestBody payload: CreateAccountDTO): ResponseEntity<AccountDTO> {
         logger.info("Called POST /accounts (payload: $payload)")
         return ResponseEntity(this.service.create(payload), HttpStatus.CREATED)
@@ -44,7 +44,7 @@ class AccountController(private val service: AccountService) {
      * @return bank account collection.
      */
     @GetMapping
-    @ApiOperation("Gets the collection of all bank accounts", produces = "application/json")
+    @Operation(summary = "Gets the collection of all bank accounts")
     fun getAll(): ResponseEntity<Collection<AccountDTO>> {
         logger.info("Called GET /accounts")
         return ResponseEntity.ok(this.service.getAll())

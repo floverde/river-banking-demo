@@ -1,52 +1,51 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mt.tech.river.bankingdemo.config
 
+import io.swagger.v3.oas.models.OpenAPI
+import io.swagger.v3.oas.models.info.Info
+import io.swagger.v3.oas.models.info.License
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import springfox.documentation.swagger2.annotations.EnableSwagger2
-import springfox.documentation.spring.web.plugins.Docket
-import springfox.documentation.spi.DocumentationType
-import springfox.documentation.builders.RequestHandlerSelectors
-import springfox.documentation.builders.PathSelectors
-import springfox.documentation.service.ApiInfo
-import springfox.documentation.builders.ApiInfoBuilder
+import org.springframework.context.annotation.Bean
 
 /**
- * Swagger configuration.
+ * OpenAPI Swagger 3 configuration.
  *
  * Set the following properties in the `application.properties`:
+ * * springdoc.info.title: Web-Service title
+ * * springdoc.info.description: Web-Service description
+ * * springdoc.info.version: Web-Service version
+ * * springdoc.info.licence.name: Software licence.
+ * * springdoc.info.licence.url: Software licence URL.
+ * * springdoc.info.termsOfService: Terms of services.
  *
- *  * swagger.title_ws: Web-Service title
- *  * swagger.description_ws: Web-Service description
- *  * swagger.version_ws: Web-Service version
- *  * swagger.package_controllers: package where are the controllers located.
+ * @author floverde
+ * @version 1.0
  */
 @Configuration
-@EnableSwagger2
 @Suppress("unused")
 class SwaggerConfig {
-    @Value("\${swagger.title_ws: Web-Service title}")
+    @Value("\${springdoc.info.title: Web-Service title}")
     private val title: String? = null
 
-    @Value("\${swagger.version: 2.0.1}")
-    private val version: String? = null
-
-    @Value("\${swagger.description_ws: Web-Service description missing.}")
+    @Value("\${springdoc.info.description: Web-Service description missing.}")
     private val description: String? = null
 
-    @Value("\${swagger.package_controllers: com.sample.controllers}")
-    private val packageControllers: String? = null
+    @Value("\${springdoc.info.version: 1.0.0}")
+    private val version: String? = null
 
-    private fun apiEndPointsInfo(): ApiInfo = ApiInfoBuilder().title(this.title).
-            description(this.description).version(this.version).build()
+    @Value("\${springdoc.info.licence.name: Apache 2.0}")
+    private val licenceName: String? = null
+
+    @Value("\${springdoc.info.licence.url: http://springdoc.org}")
+    private val licenceURL: String? = null
+
+    @Value("\${springdoc.info.terms-of-service: http://swagger.io/terms/}")
+    private val termsOfService: String? = null
 
     @Bean
-    fun api(): Docket = Docket(DocumentationType.SWAGGER_2).select().apis(
-            RequestHandlerSelectors.basePackage(this.packageControllers)).paths(
-            PathSelectors.any()).build().apiInfo(this.apiEndPointsInfo())
+    fun openAPI(): OpenAPI {
+        return OpenAPI().info(Info().title(this.title).version(this.version).
+                description(this.description).termsOfService(this.termsOfService).
+                license(License().name(this.licenceName).url(this.licenceURL)))
+    }
 }

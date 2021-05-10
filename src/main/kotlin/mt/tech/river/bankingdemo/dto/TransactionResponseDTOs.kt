@@ -1,7 +1,7 @@
 package mt.tech.river.bankingdemo.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 import java.time.Instant
 
 /**
@@ -16,7 +16,7 @@ sealed interface TransactionResponseDTO {
      * Transaction ID.
      */
     @get:JsonProperty("transaction-id", index = 0)
-    @get:ApiModelProperty(value = "Transaction ID", example = "9876543210", required = true)
+    @get:Schema(description = "Transaction ID", example = "9876543210", required = true)
     val transactionID: Long
 
     /**
@@ -24,25 +24,25 @@ sealed interface TransactionResponseDTO {
      * @see [TransactionResponseDTO.Type]
      */
     @get:JsonProperty(index = 1)
-    @get:ApiModelProperty(value = "Transaction type", example = "Deposit", required = true)
+    @get:Schema(description = "Transaction type", example = "Deposit", required = true)
     val type: Type
 
     /**
      * Transaction execution timestamp.
      */
-    @get:ApiModelProperty(value = "Transaction execution timestamp", required = true)
+    @get:Schema(description = "Transaction execution timestamp", required = true)
     val timestamp: Instant
 
     /**
      * Transaction amount.
      */
-    @get:ApiModelProperty(value = "Transaction amount", example = "$ 10.25", required = true)
+    @get:Schema(description = "Transaction amount", example = "$ 10.25", required = true)
     val amount: String
 
     /**
      * Account balance after completion of transaction.
      */
-    @get:ApiModelProperty(value = "Account balance after completion of transaction", example = "$ 10.25", required = true)
+    @get:Schema(description = "Account balance after completion of transaction", example = "$ 10.25", required = true)
     val balance: String
 
     /**

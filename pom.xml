@@ -14,7 +14,7 @@
 	<name>banking-demo</name>
 	<description>Web service of a banking application in Kotlin</description>
 	<properties>
-		<swagger.version>2.9.2</swagger.version>
+		<springdoc.version>1.5.8</springdoc.version>
 		<kotlin.version>1.4.32</kotlin.version>
 		<java.version>1.8</java.version>
 	</properties>
@@ -47,17 +47,17 @@
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-stdlib-jdk8</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>${swagger.version}</version>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${springdoc.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-kotlin -->
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>${swagger.version}</version>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-kotlin</artifactId>
+			<version>${springdoc.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.github.microutils</groupId>
