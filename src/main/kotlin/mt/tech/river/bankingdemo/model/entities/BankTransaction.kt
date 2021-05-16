@@ -8,6 +8,10 @@ import java.time.Instant
 
 /**
  * JPA entity that defines a bank transaction.
+ * * Note: a bank transaction can be: a *transfer*, a *withdrawal* or a *deposit*.
+ *    * A *transfer* has both the [payer] and [payee] fields valued.
+ *    * A *withdrawal* has only the [payer] field valued.
+ *    * A *deposit* has only the [payee] field valued.
  *
  * @author floverde
  * @version 1.0
@@ -35,30 +39,32 @@ data class BankTransaction(
     val amount: BigDecimal,
 
     /**
-     * Account that performs the transaction.
-     */
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "author", referencedColumnName = "id", updatable = false)
-    val author: Account,
-
-    /**
-     * Balance of the author's account after execution of the transaction.
-     */
-    val authorBalance: BigDecimal,
-
-    /**
-     * Account for which the transaction is intended.
-     * * Note: for transfers only, {@code null} for other transactions.
+     * Account executing the transaction as **payer**.
+     * * Note: it takes value for withdrawals and transfers, while it is `null` for deposits.
      */
     @ManyToOne(optional = true)
-    @JoinColumn(name = "target", referencedColumnName = "id", updatable = false)
-    val target: Account?,
+    @JoinColumn(name = "payer", referencedColumnName = "id", updatable = false)
+    val payer: Account?,
 
     /**
-     * Balance of the payee's account after execution of the transaction.
-     * * Note: for transfers only, {@code null} for other transactions.
+     * **Payer** account balance after transaction execution.
+     * * Note: it takes value for withdrawals and transfers, while it is `null` for deposits.
      */
-    val targetBalance: BigDecimal?
+    val payerBalance: BigDecimal?,
+
+    /**
+     * Account executing the transaction as **payee**.
+     * * Note: it takes value for deposits and transfers, while it is `null` for withdrawals.
+     */
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "payee", referencedColumnName = "id", updatable = false)
+    val payee: Account?,
+
+    /**
+     * **Payee** account balance after transaction execution.
+     * * Note: it takes value for deposits and transfers, while it is `null` for withdrawals.
+     */
+    val payeeBalance: BigDecimal?
 ) {
     /**
      * Overrides the [equals] method to use only the [id] field.

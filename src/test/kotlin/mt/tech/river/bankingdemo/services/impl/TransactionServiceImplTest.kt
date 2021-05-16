@@ -481,7 +481,7 @@ internal class TransactionServiceImplTest {
         // Calculates the expected value of the account balance
         val outAccount = inAccount.copy(balance = inAccount.balance + params.amount)
         // Initialize the JPA entity of the deposit transaction
-        var inTran = this.transactionMapper.fromDeposit(outAccount, params.amount)
+        val inTran = this.transactionMapper.fromDeposit(outAccount, params.amount)
 
         // Declares the same transaction after it has been stored in the repository
         val outTran = inTran.copy(5134L, Instant.EPOCH)

@@ -20,7 +20,7 @@ interface BankTransactionRepository : JpaRepository<BankTransaction, Long> {
      *
      * @param accountNumber number of the account involved.
      */
-    @Query("SELECT t FROM BankTransaction t WHERE t.author.id = " +
-            ":account OR t.target.id = :account ORDER BY t.timestamp DESC")
+    @Query("SELECT t FROM BankTransaction t WHERE t.payer.id = " +
+            ":account OR t.payee.id = :account ORDER BY t.timestamp DESC")
     fun findAllByAccountNumber(@Param("account") accountNumber: Long): Collection<BankTransaction>
 }

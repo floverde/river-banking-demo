@@ -24,7 +24,6 @@ class TransactionMapper(private val accountMapper: AccountMapper) {
     private val toIncomingTransferMapper = DataClassMapper<BankTransaction, IncomingTransferDTO>()
     private val toOutgoingTransferMapper = DataClassMapper<BankTransaction, OutgoingTransferDTO>()
     private val toWithdrawalResponseMapper = DataClassMapper<BankTransaction, WithdrawalResponseDTO>()
-    private val absAmountMapper = { amount: BigDecimal -> CurrencyFormatter.format(amount.abs()) }
 
     /**
      * Configure the underlying mapping functions.
@@ -35,25 +34,25 @@ class TransactionMapper(private val accountMapper: AccountMapper) {
         this.toIncomingTransferMapper.registerAlias(BankTransaction::id, IncomingTransferDTO::transactionID)
         this.toDepositResponseMapper.registerAlias(BankTransaction::id, DepositResponseDTO::transactionID)
 
-        this.toWithdrawalResponseMapper.registerAlias(BankTransaction::authorBalance, WithdrawalResponseDTO::balance)
-        this.toOutgoingTransferMapper.registerAlias(BankTransaction::authorBalance, OutgoingTransferDTO::balance)
-        this.toIncomingTransferMapper.registerAlias(BankTransaction::targetBalance, IncomingTransferDTO::balance)
-        this.toDepositResponseMapper.registerAlias(BankTransaction::authorBalance, DepositResponseDTO::balance)
+        this.toWithdrawalResponseMapper.registerAlias(BankTransaction::payerBalance, WithdrawalResponseDTO::balance)
+        this.toOutgoingTransferMapper.registerAlias(BankTransaction::payerBalance, OutgoingTransferDTO::balance)
+        this.toIncomingTransferMapper.registerAlias(BankTransaction::payeeBalance, IncomingTransferDTO::balance)
+        this.toDepositResponseMapper.registerAlias(BankTransaction::payeeBalance, DepositResponseDTO::balance)
 
-        this.toOutgoingTransferMapper.register(BankTransaction::target, this.accountMapper::toSummaryDTO)
-        this.toIncomingTransferMapper.register(BankTransaction::author, this.accountMapper::toSummaryDTO)
-        this.toOutgoingTransferMapper.registerAlias(BankTransaction::target, OutgoingTransferDTO::payee)
-        this.toIncomingTransferMapper.registerAlias(BankTransaction::author, IncomingTransferDTO::payer)
+        this.toOutgoingTransferMapper.register(BankTransaction::payee, this.accountMapper::toSummaryDTO)
+        this.toIncomingTransferMapper.register(BankTransaction::payer, this.accountMapper::toSummaryDTO)
+        this.toOutgoingTransferMapper.registerAlias(BankTransaction::payee, OutgoingTransferDTO::payee)
+        this.toIncomingTransferMapper.registerAlias(BankTransaction::payer, IncomingTransferDTO::payer)
 
-        this.toWithdrawalResponseMapper.register(BankTransaction::authorBalance, CurrencyFormatter::format)
-        this.toOutgoingTransferMapper.register(BankTransaction::authorBalance, CurrencyFormatter::format)
-        this.toIncomingTransferMapper.register(BankTransaction::targetBalance, CurrencyFormatter::format)
-        this.toDepositResponseMapper.register(BankTransaction::authorBalance, CurrencyFormatter::format)
+        this.toWithdrawalResponseMapper.register(BankTransaction::payerBalance, CurrencyFormatter::format)
+        this.toOutgoingTransferMapper.register(BankTransaction::payerBalance, CurrencyFormatter::format)
+        this.toIncomingTransferMapper.register(BankTransaction::payeeBalance, CurrencyFormatter::format)
+        this.toDepositResponseMapper.register(BankTransaction::payeeBalance, CurrencyFormatter::format)
 
         this.toWithdrawalResponseMapper.register(BankTransaction::amount, CurrencyFormatter::format)
         this.toOutgoingTransferMapper.register(BankTransaction::amount, CurrencyFormatter::format)
+        this.toIncomingTransferMapper.register(BankTransaction::amount, CurrencyFormatter::format)
         this.toDepositResponseMapper.register(BankTransaction::amount, CurrencyFormatter::format)
-        this.toIncomingTransferMapper.register(BankTransaction::amount, this.absAmountMapper)
     }
 
     /**
@@ -66,28 +65,32 @@ class TransactionMapper(private val accountMapper: AccountMapper) {
     fun toHistoryDTO(account: Account, transactions: Collection<BankTransaction>): TransactionHistoryDTO {
         // Gets the ID of the account requesting the history
         val accountID = account.id!!
-        // Create an history DTO by mapping the account and its transactions
-        return TransactionHistoryDTO(this.accountMapper.toDetailsDTO(account),
-            transactions.map { t -> this.toDTO(t, accountID) })
+        // Converts the account entity to its detail DTO
+        val accountDTO = this.accountMapper.toDetailsDTO(account)
+        // Converts the collection of transactions to their respective DTOs
+        val transactionDTOs = transactions.map { t -> this.toDTO(t, accountID) }
+        // Create a history DTO that aggregates these two pieces of data
+        return TransactionHistoryDTO(accountDTO, transactionDTOs)
     }
 
     /**
      * Converts the JPA entity of a transfer transaction into its response DTO.
      *
      * @param transfer JPA entity of a transfer to be converted.
-     * @param authorID ID of the bank account involved in it.
+     * @param accountID ID of the bank account involved in it.
      * @throws IllegalArgumentException if the JPA entity is not a transfer.
      */
-    fun toTransferResponse(transfer: BankTransaction, authorID: Long): TransferResponseDTO {
+    fun toTransferResponse(transfer: BankTransaction, accountID: Long): TransferResponseDTO {
         // Check that the JPA entity provided is actually a transfer
-        if (transfer.target != null) {
-            // Check if the account is the author of the transfer
-            return if (transfer.author.id == authorID) {
+        if (transfer.payer != null && transfer.payee != null) {
+            // Check how the account is involved in this transaction
+            return when (accountID) {
                 // Invokes the mapping function for outgoing transfers
-                this.toOutgoingTransferMapper(transfer)
-            } else {
+                transfer.payer.id -> this.toOutgoingTransferMapper(transfer)
                 // Invokes the mapping function for incoming transfers
-                this.toIncomingTransferMapper(transfer)
+                transfer.payee.id -> this.toIncomingTransferMapper(transfer)
+                // Raises an exception indicating that the account is not involved in this transfer
+                else -> throw IllegalArgumentException("Account $accountID is not involved in this transfer")
             }
         } else {
             // Raises an exception indicating that the JPA entity is not a transfer
@@ -105,7 +108,7 @@ class TransactionMapper(private val accountMapper: AccountMapper) {
      */
     fun toOutgoingTransferResponseDTO(transfer: BankTransaction): OutgoingTransferDTO {
         // Check that the JPA entity provided is actually a transfer
-        if (transfer.target != null) {
+        if (transfer.payer != null && transfer.payee != null) {
             // Invokes the underlying mapping function
             return this.toOutgoingTransferMapper(transfer)
         } else {
@@ -124,7 +127,7 @@ class TransactionMapper(private val accountMapper: AccountMapper) {
      */
     fun toIncomingTransferResponseDTO(transfer: BankTransaction): IncomingTransferDTO {
         // Check that the JPA entity provided is actually a transfer
-        if (transfer.target != null) {
+        if (transfer.payer != null && transfer.payee != null) {
             // Invokes the underlying mapping function
             return this.toIncomingTransferMapper(transfer)
         } else {
@@ -141,7 +144,7 @@ class TransactionMapper(private val accountMapper: AccountMapper) {
      */
     fun toWithdrawalResponse(withdrawal: BankTransaction): WithdrawalResponseDTO {
         // Check that the JPA entity provided is actually a withdrawal
-        if (withdrawal.target == null && withdrawal.amount < BigDecimal.ZERO) {
+        if (withdrawal.payer != null && withdrawal.payee == null) {
             // Invokes the underlying mapping function
             return this.toWithdrawalResponseMapper(withdrawal)
         } else {
@@ -158,7 +161,7 @@ class TransactionMapper(private val accountMapper: AccountMapper) {
      */
     fun toDepositResponse(deposit: BankTransaction): DepositResponseDTO {
         // Check that the JPA entity provided is actually a deposit
-        if (deposit.target == null && deposit.amount > BigDecimal.ZERO) {
+        if (deposit.payer == null && deposit.payee != null) {
             // Invokes the underlying mapping function
             return this.toDepositResponseMapper(deposit)
         } else {
@@ -171,7 +174,7 @@ class TransactionMapper(private val accountMapper: AccountMapper) {
      * Initialize a [BankTransaction] object for a bank transfer operation.
      */
     fun fromTransfer(payer: Account, payee: Account, amount: BigDecimal): BankTransaction {
-        return BankTransaction(null, null, -amount,
+        return BankTransaction(null, null, amount,
                 payer, payer.balance, payee, payee.balance)
     }
 
@@ -179,7 +182,7 @@ class TransactionMapper(private val accountMapper: AccountMapper) {
      * Initialize a [BankTransaction] object for a withdrawal operation.
      */
     fun fromWithdrawal(author: Account, amount: BigDecimal): BankTransaction {
-        return BankTransaction(null, null, -amount, author,
+        return BankTransaction(null, null, amount, author,
                 author.balance, null, null)
     }
 
@@ -187,8 +190,8 @@ class TransactionMapper(private val accountMapper: AccountMapper) {
      * Initialize a [BankTransaction] object for a deposit operation.
      */
     fun fromDeposit(author: Account, amount: BigDecimal): BankTransaction {
-        return BankTransaction(null, null, amount, author,
-                author.balance, null, null)
+        return BankTransaction(null, null, amount, null,
+                null, author, author.balance)
     }
 
     /**
@@ -199,24 +202,43 @@ class TransactionMapper(private val accountMapper: AccountMapper) {
      * @return response DTO representing a bank transaction.
      */
     fun toDTO(entity: BankTransaction, accountID: Long): TransactionResponseDTO {
-        // Check if the JPA entity is a transfer
-        return if (entity.target != null) {
-            // Check if the account is the author of the transfer
-            if (entity.author.id == accountID) {
-                // Invokes the mapping function for outgoing transfers
-                this.toOutgoingTransferMapper(entity)
+        // Check if the payer of this transaction is specified
+        return if (entity.payer != null) {
+            // Check if the payee of this transaction is specified
+            if (entity.payee != null) {
+                // Check how the account is involved in this transaction
+                when (accountID) {
+                    // Invokes the mapping function for outgoing transfers
+                    entity.payer.id -> this.toOutgoingTransferMapper(entity)
+                    // Invokes the mapping function for incoming transfers
+                    entity.payee.id -> this.toIncomingTransferMapper(entity)
+                    // Raises an exception indicating that the account is not involved in this transfer
+                    else -> throw IllegalArgumentException("Account $accountID is not involved in this transfer")
+                }
             } else {
-                // Invokes the mapping function for incoming transfers
-                this.toIncomingTransferMapper(entity)
+                // Check if the account is the author of this withdrawal
+                if (entity.payer.id == accountID) {
+                    // Invokes the mapping function for withdrawals
+                    this.toWithdrawalResponseMapper(entity)
+                } else {
+                    // Raises an exception indicating that the account is not involved in this withdrawal
+                    throw IllegalArgumentException("Account $accountID is not involved in this withdrawal")
+                }
             }
         } else {
-            // Check if the amount is negative
-            if (entity.amount < BigDecimal.ZERO) {
-                // Invokes the mapping function for withdrawals
-                this.toWithdrawalResponseMapper(entity)
+            // Check if the payee of this transaction is specified
+            if (entity.payee != null) {
+                // Check if the account is the author of this deposit
+                if (entity.payee.id == accountID) {
+                    // Invokes the mapping function for deposits
+                    this.toDepositResponseMapper(entity)
+                } else {
+                    // Raises an exception indicating that the account is not involved in this deposit
+                    throw IllegalArgumentException("Account $accountID is not involved in this deposit")
+                }
             } else {
-                // Invokes the mapping function for deposits
-                this.toDepositResponseMapper(entity)
+                // Raises an exception indicating that either the payer or the payee must be specified
+                throw IllegalArgumentException("Invalid transaction: either the payer or the payee must be specified")
             }
         }
     }
