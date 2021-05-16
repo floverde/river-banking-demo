@@ -41,8 +41,6 @@ class TransactionMapper(private val accountMapper: AccountMapper) {
 
         this.toOutgoingTransferMapper.register(BankTransaction::payee, this.accountMapper::toSummaryDTO)
         this.toIncomingTransferMapper.register(BankTransaction::payer, this.accountMapper::toSummaryDTO)
-        this.toOutgoingTransferMapper.registerAlias(BankTransaction::payee, OutgoingTransferDTO::payee)
-        this.toIncomingTransferMapper.registerAlias(BankTransaction::payer, IncomingTransferDTO::payer)
 
         this.toWithdrawalResponseMapper.register(BankTransaction::payerBalance, CurrencyFormatter::format)
         this.toOutgoingTransferMapper.register(BankTransaction::payerBalance, CurrencyFormatter::format)
